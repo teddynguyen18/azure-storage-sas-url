@@ -1,0 +1,22 @@
+{
+  "name": "azure-storage-sas-url",
+  "version": "1.0.0",
+  "description": "Small library to get sas url with @azure/storage-blob",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teddynguyen18/azure-storage-sas-url.git"
+  },
+  "author": "teddynguyen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/teddynguyen18/azure-storage-sas-url/issues"
+  },
+  "homepage": "https://github.com/teddynguyen18/azure-storage-sas-url#readme",
+  "dependencies": {
+    "@azure/storage-blob": "^12.3.0"
+  }
+}
