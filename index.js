@@ -10,7 +10,7 @@ const { NODE_ENV, STORAGE_ACCOUNT_NAME, ACCOUNT_ACCESS_KEY } = process.env;
 const isProduction = NODE_ENV === 'production';
 
 const DEFAULT_EXPIRE_IN = 1, //minute
-  DEFAULT_PERMISSIONS = 'rw'; // r-read, a-add, c-create, d-delete, x-deleteVersion, t-tag, m-move, e-execute
+  DEFAULT_PERMISSIONS = 'rw'; // r-read, a-add, c-create, w-write, d-delete, x-deleteVersion, t-tag, m-move, e-execute
 
 exports.generateSasUrl = function (
   containerName,
