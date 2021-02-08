@@ -25,7 +25,7 @@ exports.generateSasUrl = function (
     sharedKeyCredential
   );
   const containerClient = blobServiceClient.getContainerClient(containerName);
-  const pageBlobClient = containerClient.getPageBlobClient(blobName);
+  const blobClient = containerClient.getPageBlobClient(blobName);
 
   const blobSASpermissions = BlobSASPermissions.parse(permissions);
 
@@ -48,5 +48,5 @@ exports.generateSasUrl = function (
     sharedKeyCredential
   );
 
-  return `${pageBlobClient.url}?${blobSAS}`;
+  return `${blobClient.url}?${blobSAS}`;
 };
