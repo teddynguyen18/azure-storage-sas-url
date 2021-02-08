@@ -12,6 +12,12 @@ const isProduction = NODE_ENV === 'production';
 const DEFAULT_EXPIRE_IN = 1, //minute
   DEFAULT_PERMISSIONS = 'rw'; // r-read, a-add, c-create, w-write, d-delete, x-deleteVersion, t-tag, m-move, e-execute
 
+const sharedKeyCredential = new StorageSharedKeyCredential(STORAGE_ACCOUNT_NAME, ACCOUNT_ACCESS_KEY);
+const blobServiceClient = new BlobServiceClient(
+  `https://${STORAGE_ACCOUNT_NAME}.blob.core.windows.net`,
+  sharedKeyCredential
+);
+
 exports.generateSasUrl = function (
   containerName,
   blobName,
@@ -19,11 +25,6 @@ exports.generateSasUrl = function (
   expiresIn = DEFAULT_EXPIRE_IN,
   contentType // Not mandatory
 ) {
-  const sharedKeyCredential = new StorageSharedKeyCredential(STORAGE_ACCOUNT_NAME, ACCOUNT_ACCESS_KEY);
-  const blobServiceClient = new BlobServiceClient(
-    `https://${STORAGE_ACCOUNT_NAME}.blob.core.windows.net`,
-    sharedKeyCredential
-  );
   const containerClient = blobServiceClient.getContainerClient(containerName);
   const blobClient = containerClient.getBlobClient(blobName);
 
@@ -49,4 +50,20 @@ exports.generateSasUrl = function (
   );
 
   return `${blobClient.url}?${blobSAS}`;
+};
+
+exports.copyAttachment = async function (
+  sourceContainerName,
+  sourceBlobName,
+  destinationContainerName,
+  destinationBlobName
+) {
+  const blobClient = blobServiceClient.getContainerClient(sourceContainerName).getBlobClient(sourceBlobName);
+  const newBlobClient = blobServiceClient
+    .getContainerClient(destinationContainerName)
+    .getBlobClient(destinationBlobName);
+
+  const result = await (await newBlobClient.beginCopyFromURL(blobClient.url)).pollUntilDone();
+
+  return result;
 };
