@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/teddynguyen18/azure-storage-sas-url#readme",
   "dependencies": {
-    "@azure/storage-blob": "^12.3.0"
+    "@azure/storage-blob": "^12.4.1"
   }
 }
